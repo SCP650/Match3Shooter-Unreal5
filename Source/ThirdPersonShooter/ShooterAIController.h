@@ -20,7 +20,8 @@ protected:
 
 private:
 	APawn* PlayerPawn;
+	UBlackboardComponent* AIBlackboard;
 
 	UPROPERTY(EditAnywhere)
-		float AcceptanceRadius = 200;
+		class UBehaviorTree* AIBehavior;
 };
