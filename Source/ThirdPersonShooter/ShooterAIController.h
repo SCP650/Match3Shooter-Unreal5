@@ -20,4 +20,7 @@ protected:
 
 private:
 	APawn* PlayerPawn;
+
+	UPROPERTY(EditAnywhere)
+		float AcceptanceRadius = 200;
 };
