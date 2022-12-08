@@ -19,13 +19,4 @@ void AShooterAIController::BeginPlay()
 void AShooterAIController::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
-	if (LineOfSightTo(PlayerPawn)) {
-		AIBlackboard->SetValueAsVector(TEXT("PlayerLocation"), PlayerPawn->GetActorLocation());
-
-		AIBlackboard->SetValueAsVector(TEXT("LastKnownLocation"), PlayerPawn->GetActorLocation());
-	}
-	else {
-		AIBlackboard->ClearValue(TEXT("PlayerLocation"));
-	}
-	
 }

@@ -31,13 +31,14 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
+	void Shoot();
 
 private:
 	void MoveForward(float AxisValue);
 	void LookUp(float AxisValue);
 	void LookLeft(float AxisValue);
 	void MoveLeft(float AxisValue);
-	void Shoot();
+	
 
 	UPROPERTY(EditDefaultsOnly)
 		float MaxHealth = 100;
