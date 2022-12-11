@@ -14,9 +14,11 @@ class THIRDPERSONSHOOTER_API AShooterAIController : public AAIController
 {
 	GENERATED_BODY()
 	
+public:
+	bool IsDead() const;
+
 protected:
 	virtual void BeginPlay();
-	virtual void Tick(float DeltaSeconds);
 
 private:
 	APawn* PlayerPawn;

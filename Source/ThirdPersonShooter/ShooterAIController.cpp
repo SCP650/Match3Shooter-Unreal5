@@ -4,6 +4,16 @@
 #include "ShooterAIController.h"
 #include "Kismet/GameplayStatics.h"
 #include "BehaviorTree/BlackboardComponent.h"
+#include "ShooterCharacter.h"
+
+bool AShooterAIController::IsDead() const
+{
+	AShooterCharacter* ControllerCharacter = Cast<AShooterCharacter>(GetPawn());
+	if (ControllerCharacter != nullptr) {
+		return ControllerCharacter->IsDead();
+	}
+	return true;
+}
 
 void AShooterAIController::BeginPlay()
 {
@@ -16,7 +26,3 @@ void AShooterAIController::BeginPlay()
 	}
 }
 
-void AShooterAIController::Tick(float DeltaSeconds)
-{
-	Super::Tick(DeltaSeconds);
-}

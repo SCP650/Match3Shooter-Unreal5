@@ -15,4 +15,6 @@ class THIRDPERSONSHOOTER_API AKillEmAllGameMode : public AThirdPersonShooterGame
 	GENERATED_BODY()
 public:
 	virtual void PawnKilled(APawn* PawnKilled) override;
+private:
+	void EndGame(bool bIsPlayerWinner);
 };
