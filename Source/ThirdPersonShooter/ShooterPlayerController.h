@@ -15,6 +15,8 @@ class THIRDPERSONSHOOTER_API AShooterPlayerController : public APlayerController
 	GENERATED_BODY()
 public:
 	virtual void GameHasEnded(class AActor* EndGameFocus = nullptr, bool bIsWinner = false) override;
+	UPROPERTY(BlueprintReadWrite)
+	UUserWidget* HUDPointer;
 protected:
 	virtual void BeginPlay() override;
 private:
@@ -27,5 +29,4 @@ private:
 	UPROPERTY(EditAnywhere)
 		float RestartDelay = 5;
 	FTimerHandle RestartTimer;
-	UUserWidget* HUD;
 };

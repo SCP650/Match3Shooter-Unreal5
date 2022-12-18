@@ -8,17 +8,17 @@
 void AShooterPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-	HUD = CreateWidget(this, HUDClass);
-	if (HUD != nullptr) {
-		HUD->AddToViewport();
+	HUDPointer = CreateWidget(this, HUDClass);
+	if (HUDPointer != nullptr) {
+		HUDPointer->AddToViewport();
 	}
 }
 
 void AShooterPlayerController::GameHasEnded(AActor* EndGameFocus, bool bIsWinner)
 {
 	Super::GameHasEnded(EndGameFocus, bIsWinner);
-	if (HUD != nullptr) {
-		HUD->RemoveFromViewport();
+	if (HUDPointer != nullptr) {
+		HUDPointer->RemoveFromViewport();
 	}
 	if (bIsWinner) {
 		UUserWidget* WinScreen = CreateWidget(this, WinScreenClass);
