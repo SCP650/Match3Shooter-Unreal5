@@ -20,9 +20,10 @@ public:
 	void Initialize(FSubsystemCollectionBase& Collection) override;
 	// USubsystem implementation End
 	void Deinitialize() override;
+	UFUNCTION(BlueprintCallable)
+	void SetSphereActor(TSubclassOf<class ASphereActor> SphereClass);
 private:
 	void SpawnSpheres(int count);
 	void CheckForSameColorSpheres();
-	UPROPERTY(EditAnywhere)
-		TSubclassOf<class ASphereActor> BP_Sphere;
+	TSubclassOf<class ASphereActor> BP_Sphere;
 };

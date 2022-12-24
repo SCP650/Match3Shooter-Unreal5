@@ -5,14 +5,21 @@
 
 void UMatch3Subsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
-	if (BP_Sphere != nullptr) {
-		SpawnSpheres(5);
-	}
 	GLog->Log("Match3 Subsystem Inithalized ");
 }
 
 void UMatch3Subsystem::Deinitialize()
 {
+	GLog->Log("Match3 Subsystem deinitialized ");
+}
+
+void UMatch3Subsystem::SetSphereActor(TSubclassOf<class ASphereActor> SphereClass)
+{
+	GLog->Log("Set sphere called ");
+	BP_Sphere = SphereClass;
+	if (BP_Sphere != nullptr) {
+		SpawnSpheres(5);
+	}
 }
 
 void UMatch3Subsystem::SpawnSpheres(int count)
