@@ -2,10 +2,12 @@
 
 
 #include "Match3Subsystem.h"
+#include "ColorMapping.h"
 
 void UMatch3Subsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
 	GLog->Log("Match3 Subsystem Inithalized ");
+
 }
 
 void UMatch3Subsystem::Deinitialize()
@@ -30,7 +32,8 @@ void UMatch3Subsystem::SpawnSpheres(int count)
 		FRotator myRot(0, 0, 0);
 		FVector myLoc(0, i * 50, 0);
 
-		GetWorld()->SpawnActor<ASphereActor>(BP_Sphere, myLoc, myRot, SpawnInfo);
+		ASphereActor* sphere = GetWorld()->SpawnActor<ASphereActor>(BP_Sphere, myLoc, myRot, SpawnInfo);
+		sphere->SetColor(ColorMapping::GetRandomSphereColorKey());
 		GLog->Log("Spawned the ASphereActor.");
 	}
 }

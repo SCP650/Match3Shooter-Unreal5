@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "ColorMapping.h"
 #include "SphereActor.generated.h"
 
 UCLASS()
@@ -22,5 +23,12 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+public:
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		SphereColorEnum SphereColor;
+	void SetColor(SphereColorEnum color);
+
 
 };

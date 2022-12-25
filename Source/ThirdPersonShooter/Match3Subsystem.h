@@ -3,8 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "SphereActor.h"
 #include "Subsystems/WorldSubsystem.h"
+#include "SphereActor.h"
 #include "Match3Subsystem.generated.h"
 
 
@@ -22,8 +22,11 @@ public:
 	void Deinitialize() override;
 	UFUNCTION(BlueprintCallable)
 	void SetSphereActor(TSubclassOf<class ASphereActor> SphereClass);
+
 private:
 	void SpawnSpheres(int count);
 	void CheckForSameColorSpheres();
 	TSubclassOf<class ASphereActor> BP_Sphere;
 };
+
+
