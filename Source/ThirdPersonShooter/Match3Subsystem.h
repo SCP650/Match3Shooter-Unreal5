@@ -24,7 +24,7 @@ public:
 	void SetSphereActor(TSubclassOf<class ASphereActor> SphereClass);
 
 private:
-	void SpawnSpheres(int count);
+	void SpawnSpheres(float CenterX, float CenterY, float Degree, float CircleRadius, float ObjectRadius);
 	void CheckForSameColorSpheres();
 	TSubclassOf<class ASphereActor> BP_Sphere;
 };
