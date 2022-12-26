@@ -10,14 +10,14 @@ ASphereActor::ASphereActor()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
+	
 }
 
 // Called when the game starts or when spawned
 void ASphereActor::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	currHealth = MaxHealth;
 }
 
 // Called every frame
@@ -47,6 +47,14 @@ void ASphereActor::SetColor(SphereColorEnum color)
 			// Set the color parameter of the material to the desired color
 			MaterialInstance->SetVectorParameterValue("Color", Fcolor);
 		}
+	}
+}
+
+void ASphereActor::TakeDamage(float damage)
+{
+	currHealth -= damage;
+	if (currHealth < 0) {
+		Destroy(true);
 	}
 }
 

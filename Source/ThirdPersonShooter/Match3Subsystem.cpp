@@ -22,7 +22,7 @@ void UMatch3Subsystem::SetSphereActor(TSubclassOf<class ASphereActor> SphereClas
 	GLog->Log("Set sphere called ");
 	BP_Sphere = SphereClass;
 	if (BP_Sphere != nullptr) {
-		SpawnSpheres(2355,-2930,180,1000,100);
+		SpawnSpheres(2355,-2930,180,1000,200);
 	}
 }
 
@@ -50,7 +50,7 @@ void UMatch3Subsystem::SpawnSpheres(float CenterX, float CenterY, float Degree, 
 		float X = CenterX + CircleRadius * FMath::Cos(Radians);
 		float Y = CenterY + CircleRadius * FMath::Sin(Radians);
 
-		FVector myLoc(X, Y, ObjectRadius);
+		FVector myLoc(X, Y, 50);
 		ASphereActor* sphere = GetWorld()->SpawnActor<ASphereActor>(BP_Sphere, myLoc, myRot, SpawnInfo);
 		sphere->SetColor(ColorMapping::GetRandomSphereColorKey());
 		GLog->Log("Spawned the ASphereActor.");

@@ -5,6 +5,7 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "Kismet/GamePlayStatics.h"
 #include "DrawDebugHelpers.h"
+#include "SphereActor.h"
 #include "Engine/DamageEvents.h"
 
 // Sets default values
@@ -34,10 +35,16 @@ void AGun::PullTrigger()
 		UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactSound, Hit.Location);
 		AActor* HitActor = Hit.GetActor();
 		if (HitActor != nullptr) {
-			FPointDamageEvent DamageEvent(Damage, Hit, ShotDirection, nullptr);
-			AController* OwnerController = GetOwnerController();
-			if (OwnerController != nullptr) {
-				HitActor->TakeDamage(Damage, DamageEvent, OwnerController, this);
+			ASphereActor* sphere = Cast<ASphereActor>(HitActor);
+			if (sphere != nullptr) {
+				sphere->TakeDamage(Damage);
+			}
+			else {
+				FPointDamageEvent DamageEvent(Damage, Hit, ShotDirection, nullptr);
+				AController* OwnerController = GetOwnerController();
+				if (OwnerController != nullptr) {
+					HitActor->TakeDamage(Damage, DamageEvent, OwnerController, this);
+				}
 			}
 		}
 	}

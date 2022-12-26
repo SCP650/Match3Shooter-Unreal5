@@ -28,7 +28,12 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		SphereColorEnum SphereColor;
+	UPROPERTY(EditAnywhere)
+		float MaxHealth;
+
+	float currHealth;
 	void SetColor(SphereColorEnum color);
+	void TakeDamage(float damage);
 
 
 };
