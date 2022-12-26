@@ -30,7 +30,7 @@ void UMatch3Subsystem::SpawnSpheres(int count)
 		FActorSpawnParameters SpawnInfo;
 		SpawnInfo.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
 		FRotator myRot(0, 0, 0);
-		FVector myLoc(0, i * 50, 0);
+		FVector myLoc(2400.000000 + i * 100,-750.000000,50);
 
 		ASphereActor* sphere = GetWorld()->SpawnActor<ASphereActor>(BP_Sphere, myLoc, myRot, SpawnInfo);
 		sphere->SetColor(ColorMapping::GetRandomSphereColorKey());
