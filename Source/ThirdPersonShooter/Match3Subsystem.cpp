@@ -22,12 +22,19 @@ void UMatch3Subsystem::SetSphereActor(TSubclassOf<class ASphereActor> SphereClas
 	GLog->Log("Set sphere called ");
 	BP_Sphere = SphereClass;
 	if (BP_Sphere != nullptr) {
+
+		GLog->Log("sphere bp is not null ");
 		SpawnSpheres(2355,-2930,180,1000,200);
+	}
+	else {
+
+		GLog->Log("sphere bp is null ");
 	}
 }
 
 void UMatch3Subsystem::SpawnSpheres(float CenterX, float CenterY, float Degree, float CircleRadius, float ObjectRadius)
 {
+	GLog->Log("spawning sphere");
 	FRotator myRot(0, 0, 0);
 	FActorSpawnParameters SpawnInfo;
 	SpawnInfo.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
@@ -53,6 +60,8 @@ void UMatch3Subsystem::SpawnSpheres(float CenterX, float CenterY, float Degree, 
 		FVector myLoc(X, Y, 50);
 		ASphereActor* sphere = GetWorld()->SpawnActor<ASphereActor>(BP_Sphere, myLoc, myRot, SpawnInfo);
 		sphere->SetColor(ColorMapping::GetRandomSphereColorKey());
+		sphere->id = i;
+		SpherePositions.Add(sphere);
 		GLog->Log("Spawned the ASphereActor.");
 	}
 
@@ -61,4 +70,17 @@ void UMatch3Subsystem::SpawnSpheres(float CenterX, float CenterY, float Degree, 
 
 void UMatch3Subsystem::CheckForSameColorSpheres()
 {
+}
+
+void UMatch3Subsystem::OnSphereDestroyed(int id)
+{
+	GLog->Log("sphere destroyed!!!");
+	for(int i = id+1; i < SpherePositions.Num(); i++)
+	{
+		//get previous sphere loc
+		FVector target = SpherePositions[i-1]->GetActorLocation();
+		//move up
+		SpherePositions[i]->MoveToPosition(target, 2);
+	}
+	SpherePositions.RemoveAt(id);
 }

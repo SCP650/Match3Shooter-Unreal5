@@ -22,11 +22,14 @@ public:
 	void Deinitialize() override;
 	UFUNCTION(BlueprintCallable)
 	void SetSphereActor(TSubclassOf<class ASphereActor> SphereClass);
+	void OnSphereDestroyed(int id);
 
 private:
 	void SpawnSpheres(float CenterX, float CenterY, float Degree, float CircleRadius, float ObjectRadius);
 	void CheckForSameColorSpheres();
 	TSubclassOf<class ASphereActor> BP_Sphere;
+	TArray<ASphereActor*> SpherePositions;
+	
 };
 
 

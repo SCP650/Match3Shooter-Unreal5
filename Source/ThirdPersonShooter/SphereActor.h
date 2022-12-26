@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "ColorMapping.h"
+#include "TweenComponent.h"
 #include "SphereActor.generated.h"
 
 UCLASS()
@@ -25,7 +26,8 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 public:
-
+	UPROPERTY(EditAnywhere)
+		int id = -1;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		SphereColorEnum SphereColor;
 	UPROPERTY(EditAnywhere)
@@ -34,6 +36,10 @@ public:
 	float currHealth;
 	void SetColor(SphereColorEnum color);
 	void TakeDamage(float damage);
+	void MoveToPosition(FVector loc, float duration);
+private:
+	void DestroySelf();
+	UTweenComponent* tween;
 
 
 };

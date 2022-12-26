@@ -3,6 +3,7 @@
 
 #include "SphereActor.h"
 #include "Materials/MaterialInstanceDynamic.h"
+#include "Match3Subsystem.h"
 #include "ColorMapping.h"
 
 // Sets default values
@@ -18,6 +19,7 @@ void ASphereActor::BeginPlay()
 {
 	Super::BeginPlay();
 	currHealth = MaxHealth;
+	tween = FindComponentByClass<UTweenComponent>();
 }
 
 // Called every frame
@@ -54,7 +56,19 @@ void ASphereActor::TakeDamage(float damage)
 {
 	currHealth -= damage;
 	if (currHealth < 0) {
-		Destroy(true);
+		DestroySelf();
 	}
 }
 
+void ASphereActor::MoveToPosition(FVector loc, float duration)
+{
+	if (tween != nullptr) {
+		tween->TweenToPosition(loc, duration);
+	}
+}
+
+void ASphereActor::DestroySelf() 
+{
+	GetWorld()->GetSubsystem<UMatch3Subsystem>()->OnSphereDestroyed(id);
+	Destroy(true);
+}
