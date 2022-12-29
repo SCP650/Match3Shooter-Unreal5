@@ -37,8 +37,8 @@ public:
 	void SetColor(SphereColorEnum color);
 	void TakeDamage(float damage);
 	void MoveToPosition(FVector loc, float duration);
+	void DestroyBySubSystem();
 private:
-	void DestroySelf();
 	UTweenComponent* tween;
 
 

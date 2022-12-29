@@ -3,6 +3,7 @@
 
 #include "Match3Subsystem.h"
 #include "ColorMapping.h"
+#include "TimerManager.h"
 
 #define M_PI 3.14159265358979323846
 
@@ -64,24 +65,51 @@ void UMatch3Subsystem::SpawnSpheres(float CenterX, float CenterY, float Degree, 
 		SpherePositions.Add(sphere);
 		GLog->Log("Spawned the ASphereActor.");
 	}
-
+	CheckForSameColorSpheres();
 
 }
 
 void UMatch3Subsystem::CheckForSameColorSpheres()
 {
+	bIsCheckingForSameColorSpheres = true; // Set the flag to true before calling CheckForSameColorSpheres
+
+	int left = 0;
+	GLog->Log("check sphere with same color");
+	for (int right = 1; right <= SpherePositions.Num();) {
+		if (right < SpherePositions.Num() && SpherePositions[left]->SphereColor == SpherePositions[right]->SphereColor) {
+			right++;
+		}
+		else {
+			int count = right - left;
+			if (count >= 3) {
+				//Have a match three
+				GLog->Log("found match 3 sphere");
+				OnSphereDestroyed(left, count);
+				return;
+			}
+			left++;
+			right++;
+		}
+	}
+	bIsCheckingForSameColorSpheres = false; // Set the flag to true before calling CheckForSameColorSpheres
 }
 
-void UMatch3Subsystem::OnSphereDestroyed(int id)
+
+void UMatch3Subsystem::OnSphereDestroyed(int start, int count)
 {
 	GLog->Log("sphere destroyed!!!");
-	for(int i = id+1; i < SpherePositions.Num(); i++)
+	for (int i = start+count; i < SpherePositions.Num(); i++)
 	{
 		//get previous sphere loc
-		FVector target = SpherePositions[i-1]->GetActorLocation();
+		FVector target = SpherePositions[i - count]->GetActorLocation();
 		//move up
 		SpherePositions[i]->MoveToPosition(target, 1);
-		SpherePositions[i]->id = i-1;
+		SpherePositions[i]->id = i - count;
 	}
-	SpherePositions.RemoveAt(id);
+	for (int j = start; j < start + count; j++) {
+		SpherePositions[j]->DestroyBySubSystem();
+		SpherePositions.RemoveAt(j);
+	}
+	//if(bIsCheckingForSameColorSpheres) return;
+	GetWorld()->GetTimerManager().SetTimer(Match3TimerHandle, this, &UMatch3Subsystem::CheckForSameColorSpheres, 2, false);
 }

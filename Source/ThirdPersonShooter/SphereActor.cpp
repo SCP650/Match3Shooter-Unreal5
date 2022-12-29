@@ -56,8 +56,13 @@ void ASphereActor::TakeDamage(float damage)
 {
 	currHealth -= damage;
 	if (currHealth < 0) {
-		DestroySelf();
+		//destroyed by player
+		GetWorld()->GetSubsystem<UMatch3Subsystem>()->OnSphereDestroyed(id);
 	}
+}
+
+void ASphereActor::DestroyBySubSystem() {
+	Destroy(true);
 }
 
 void ASphereActor::MoveToPosition(FVector loc, float duration)
@@ -67,8 +72,4 @@ void ASphereActor::MoveToPosition(FVector loc, float duration)
 	}
 }
 
-void ASphereActor::DestroySelf() 
-{
-	GetWorld()->GetSubsystem<UMatch3Subsystem>()->OnSphereDestroyed(id);
-	Destroy(true);
-}
+

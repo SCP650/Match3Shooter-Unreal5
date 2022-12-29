@@ -22,13 +22,15 @@ public:
 	void Deinitialize() override;
 	UFUNCTION(BlueprintCallable)
 	void SetSphereActor(TSubclassOf<class ASphereActor> SphereClass);
-	void OnSphereDestroyed(int id);
+	void OnSphereDestroyed(int start, int count = 1); //destory count number of sphere starting from start
 
 private:
 	void SpawnSpheres(float CenterX, float CenterY, float Degree, float CircleRadius, float ObjectRadius);
 	void CheckForSameColorSpheres();
 	TSubclassOf<class ASphereActor> BP_Sphere;
 	TArray<ASphereActor*> SpherePositions;
+	bool bIsCheckingForSameColorSpheres = false;
+	FTimerHandle Match3TimerHandle;
 	
 };
 
