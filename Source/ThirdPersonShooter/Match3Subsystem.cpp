@@ -80,7 +80,8 @@ void UMatch3Subsystem::OnSphereDestroyed(int id)
 		//get previous sphere loc
 		FVector target = SpherePositions[i-1]->GetActorLocation();
 		//move up
-		SpherePositions[i]->MoveToPosition(target, 2);
+		SpherePositions[i]->MoveToPosition(target, 1);
+		SpherePositions[i]->id = i-1;
 	}
 	SpherePositions.RemoveAt(id);
 }
