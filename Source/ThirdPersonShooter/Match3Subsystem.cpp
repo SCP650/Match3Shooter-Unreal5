@@ -105,7 +105,7 @@ void UMatch3Subsystem::OnSphereDestroyed(int start, int count)
 		//get previous sphere loc
 		FVector target = SpherePositions[i - count]->GetActorLocation();
 		//move up
-		SpherePositions[i]->MoveToPosition(target, 1);
+		SpherePositions[i]->MoveToPosition(target, 2.5);
 		SpherePositions[i]->id = i - count;
 	}
 	for (int j = start; j < start + count; j++) {
@@ -113,5 +113,5 @@ void UMatch3Subsystem::OnSphereDestroyed(int start, int count)
 		SpherePositions.RemoveAt(start);
 	}
 	//if(bIsCheckingForSameColorSpheres) return;
-	GetWorld()->GetTimerManager().SetTimer(Match3TimerHandle, this, &UMatch3Subsystem::CheckForSameColorSpheres, 2, false);
+	GetWorld()->GetTimerManager().SetTimer(Match3TimerHandle, this, &UMatch3Subsystem::CheckForSameColorSpheres, 2.5, false);
 }
