@@ -75,16 +75,18 @@ void ASphereActor::DestroyBySubSystem() {
 	// Check if the mesh is valid
 	if (Mesh)
 	{
-		// Create a dynamic material instance from the static mesh's material
-		UMaterialInstanceDynamic* MaterialInstance = Mesh->CreateAndSetMaterialInstanceDynamic(0);
+		for (int i = 0; i < Mesh->GetNumMaterials(); i++) {
+			// Create a dynamic material instance from the static mesh's material
+			UMaterialInstanceDynamic* MaterialInstance = Mesh->CreateAndSetMaterialInstanceDynamic(i);
 
-		// Check if the material instance is valid
-		if (MaterialInstance)
-		{
-			FLinearColor Fcolor = *ColorMapping::ColorMap.Find(SphereColor);
+			// Check if the material instance is valid
+			if (MaterialInstance)
+			{
+				FLinearColor Fcolor = *ColorMapping::ColorMap.Find(SphereColor);
 
-			// Set the color parameter of the material to the desired color
-			MaterialInstance->SetVectorParameterValue("Color", Fcolor);
+				// Set the color parameter of the material to the desired color
+				MaterialInstance->SetVectorParameterValue("Color", Fcolor);
+			}
 		}
 	}
 
