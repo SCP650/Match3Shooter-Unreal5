@@ -48,7 +48,9 @@ void UMatch3Subsystem::SpawnSpheres(float CenterX, float CenterY, float Degree, 
 
 	// Calculate the starting angle based on the degree parameter
 	float StartingAngle = 0;
-
+	
+	SphereColorEnum preColor;
+	int consecutiveCount = 0;
 	// Place the objects on the circumference
 	for (int i = 0; i < MaxObjectCount; i++)
 	{
@@ -60,12 +62,28 @@ void UMatch3Subsystem::SpawnSpheres(float CenterX, float CenterY, float Degree, 
 
 		FVector myLoc(X, Y, 50);
 		ASphereActor* sphere = GetWorld()->SpawnActor<ASphereActor>(BP_Sphere, myLoc, myRot, SpawnInfo);
-		sphere->SetColor(ColorMapping::GetRandomSphereColorKey());
+		//ensure no match three at the start
+		SphereColorEnum ranColor = ColorMapping::GetRandomSphereColorKey();
+		if (i != 0) {
+			while (ranColor == preColor && consecutiveCount >= 2) {
+				ranColor = ColorMapping::GetRandomSphereColorKey();
+			}
+			if (preColor == ranColor) {
+				consecutiveCount += 1;
+			}
+			else {
+				consecutiveCount = 0;
+			}
+		}
+		
+		sphere->SetColor(ranColor);
+		preColor = ranColor;
+
 		sphere->id = i;
 		SpherePositions.Add(sphere);
 		GLog->Log("Spawned the ASphereActor.");
 	}
-	CheckForSameColorSpheres();
+	//CheckForSameColorSpheres();
 
 }
 
