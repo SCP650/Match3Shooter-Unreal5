@@ -32,6 +32,8 @@ public:
 		SphereColorEnum SphereColor;
 	UPROPERTY(EditAnywhere)
 		float MaxHealth;
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<AActor> gc_class;
 
 	float currHealth;
 	void SetColor(SphereColorEnum color);
