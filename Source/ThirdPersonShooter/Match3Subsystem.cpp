@@ -65,7 +65,7 @@ void UMatch3Subsystem::SpawnSpheres(float CenterX, float CenterY, float Degree, 
 		//ensure no match three at the start
 		SphereColorEnum ranColor = ColorMapping::GetRandomSphereColorKey();
 		if (i != 0) {
-			while (ranColor == preColor && consecutiveCount >= 2) {
+			while (ranColor == preColor && consecutiveCount >= 1) {
 				ranColor = ColorMapping::GetRandomSphereColorKey();
 			}
 			if (preColor == ranColor) {
