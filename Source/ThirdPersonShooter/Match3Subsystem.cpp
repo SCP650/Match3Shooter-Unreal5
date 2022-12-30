@@ -25,7 +25,7 @@ void UMatch3Subsystem::SetSphereActor(TSubclassOf<class ASphereActor> SphereClas
 	if (BP_Sphere != nullptr) {
 
 		GLog->Log("sphere bp is not null ");
-		SpawnSpheres(2355,-2930,180,1000,200);
+		SpawnSpheres(2355,-2930,180,2000,200);
 	}
 	else {
 
@@ -75,19 +75,21 @@ void UMatch3Subsystem::CheckForSameColorSpheres()
 
 	int left = 0;
 	GLog->Log("check sphere with same color");
-	for (int right = 1; right <= SpherePositions.Num();) {
-		if (right < SpherePositions.Num() && SpherePositions[left]->SphereColor == SpherePositions[right]->SphereColor) {
+	int lengh = SpherePositions.Num();
+	for (int right = 1; right <= lengh;) {
+		if (right < lengh && SpherePositions[left]->SphereColor == SpherePositions[right]->SphereColor) {
 			right++;
 		}
 		else {
 			int count = right - left;
 			if (count >= 3) {
 				//Have a match three
-				GLog->Log("found match 3 sphere");
+				UE_LOG(LogTemp, Warning, TEXT("found match 3 spheres %d %d"), left, right);
 				OnSphereDestroyed(left, count);
+				bIsCheckingForSameColorSpheres = false;
 				return;
 			}
-			left++;
+			left = right;
 			right++;
 		}
 	}
@@ -107,8 +109,8 @@ void UMatch3Subsystem::OnSphereDestroyed(int start, int count)
 		SpherePositions[i]->id = i - count;
 	}
 	for (int j = start; j < start + count; j++) {
-		SpherePositions[j]->DestroyBySubSystem();
-		SpherePositions.RemoveAt(j);
+		SpherePositions[start]->DestroyBySubSystem();
+		SpherePositions.RemoveAt(start);
 	}
 	//if(bIsCheckingForSameColorSpheres) return;
 	GetWorld()->GetTimerManager().SetTimer(Match3TimerHandle, this, &UMatch3Subsystem::CheckForSameColorSpheres, 2, false);
